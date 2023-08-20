@@ -34,6 +34,7 @@ percent-encoding = { workspace = true, optional = true }
 webpage = { version = "1.6", default-features = false, features = [
   "serde",
 ], optional = true }
+markdown-it = "0.5.1"
 encoding = { version = "0.2.33", optional = true }
 anyhow = { workspace = true }
 futures = { workspace = true, optional = true }
@@ -45,3 +46,4 @@ actix-web = { workspace = true, optional = true }
 getrandom = { version = "0.2.10", features = ["js"] }
 ammonia = { version = "3.3.0", optional = true }
 image_hasher = "1.2.0"
+image = "0.24.7"
