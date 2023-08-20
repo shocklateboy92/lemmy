@@ -14,26 +14,7 @@ path = "src/lib.rs"
 doctest = false
 
 [features]
-full = [
-  "tracing",
-  "rosetta-i18n",
-  "chrono",
-  "lemmy_utils",
-  "lemmy_db_views/full",
-  "lemmy_db_views_actor/full",
-  "lemmy_db_views_moderator/full",
-  "percent-encoding",
-  "encoding",
-  "reqwest-middleware",
-  "webpage",
-  "ts-rs",
-  "tokio",
-  "uuid",
-  "reqwest",
-  "actix-web",
-  "futures",
-  "ammonia",
-]
+full = ["tracing", "rosetta-i18n", "chrono", "lemmy_utils", "lemmy_db_views/full", "lemmy_db_views_actor/full", "lemmy_db_views_moderator/full", "percent-encoding", "encoding", "reqwest-middleware", "webpage", "ts-rs", "tokio", "uuid", "reqwest", "actix-web", "futures", "ammonia"]
 
 [dependencies]
 lemmy_db_views = { workspace = true }
@@ -63,3 +44,4 @@ ts-rs = { workspace = true, optional = true }
 actix-web = { workspace = true, optional = true }
 getrandom = { version = "0.2.10", features = ["js"] }
 ammonia = { version = "3.3.0", optional = true }
+image_hasher = "1.2.0"

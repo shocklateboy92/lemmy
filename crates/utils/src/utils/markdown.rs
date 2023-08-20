@@ -3,7 +3,7 @@ use once_cell::sync::Lazy;
 
 mod spoiler_rule;
 
-static MARKDOWN_PARSER: Lazy<MarkdownIt> = Lazy::new(|| {
+pub static MARKDOWN_PARSER: Lazy<MarkdownIt> = Lazy::new(|| {
   let mut parser = MarkdownIt::new();
   markdown_it::plugins::cmark::add(&mut parser);
   markdown_it::plugins::extra::add(&mut parser);

@@ -3,19 +3,13 @@ use actix_web::web::Data;
 use lemmy_api_common::{
   build_response::build_post_response,
   context::LemmyContext,
+  embeddings::create_embeddings,
   post::{CreatePost, PostResponse},
   request::fetch_site_data,
   utils::{
-    check_community_ban,
-    check_community_deleted_or_removed,
-    generate_local_apub_endpoint,
-    honeypot_check,
-    local_site_to_slur_regex,
-    local_user_view_from_jwt,
-    mark_post_as_read,
-    sanitize_html,
-    sanitize_html_opt,
-    EndpointType,
+    check_community_ban, check_community_deleted_or_removed, generate_local_apub_endpoint,
+    honeypot_check, local_site_to_slur_regex, local_user_view_from_jwt, mark_post_as_read,
+    sanitize_html, sanitize_html_opt, EndpointType,
   },
 };
 use lemmy_db_schema::{
@@ -152,6 +146,8 @@ impl PerformCrud for CreatePost {
       person_id,
       score: 1,
     };
+
+    create_embeddings(updated_post);
 
     PostLike::like(context.pool(), &like_form)
       .await
