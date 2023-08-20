@@ -12,6 +12,10 @@ pub mod sql_types {
     #[derive(diesel::sql_types::SqlType)]
     #[diesel(postgres_type(name = "sort_type_enum"))]
     pub struct SortTypeEnum;
+
+    #[derive(diesel::sql_types::SqlType)]
+    #[diesel(postgres_type(name = "vector"))]
+    pub struct Vector;
 }
 
 diesel::table! {
@@ -269,6 +273,16 @@ diesel::table! {
         email -> Text,
         verification_token -> Text,
         published -> Timestamp,
+    }
+}
+
+diesel::table! {
+    use diesel::sql_types::*;
+    use super::sql_types::Vector;
+
+    embedding (id) {
+        id -> Int4,
+        image -> Vector,
     }
 }
 
@@ -678,6 +692,13 @@ diesel::table! {
 }
 
 diesel::table! {
+    post_embedding (post_id, embedding_id) {
+        post_id -> Int4,
+        embedding_id -> Int4,
+    }
+}
+
+diesel::table! {
     post_like (id) {
         id -> Int4,
         post_id -> Int4,
@@ -913,6 +934,8 @@ diesel::joinable!(post -> person (creator_id));
 diesel::joinable!(post_aggregates -> community (community_id));
 diesel::joinable!(post_aggregates -> person (creator_id));
 diesel::joinable!(post_aggregates -> post (post_id));
+diesel::joinable!(post_embedding -> embedding (embedding_id));
+diesel::joinable!(post_embedding -> post (post_id));
 diesel::joinable!(post_like -> person (person_id));
 diesel::joinable!(post_like -> post (post_id));
 diesel::joinable!(post_read -> person (person_id));
@@ -951,6 +974,7 @@ diesel::allow_tables_to_appear_in_same_query!(
     custom_emoji,
     custom_emoji_keyword,
     email_verification,
+    embedding,
     federation_allowlist,
     federation_blocklist,
     instance,
@@ -980,6 +1004,7 @@ diesel::allow_tables_to_appear_in_same_query!(
     person_post_aggregates,
     post,
     post_aggregates,
+    post_embedding,
     post_like,
     post_read,
     post_report,
